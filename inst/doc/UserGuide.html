@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Antoine Champion" />
+
+<meta name="date" content="2017-07-27" />
+
+<title>User Guide</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">User Guide</h1>
+<h4 class="author"><em>Antoine Champion</em></h4>
+<h4 class="date"><em>2017-07-27</em></h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This package adds an <code>optional</code> type, similar to <code>Option</code> in F#, OCaml and Scala, to <code>Maybe</code> in Haskell, and to nullable types in <code>C#</code>.</p>
+<p>It should be used instead of <code>NULL</code> for values that might be missing or otherwise invalid.</p>
+<p>This package also introduce pattern matching.</p>
+</div>
+<div id="using-the-optional-type" class="section level2">
+<h2>Using the optional type</h2>
+<p><code>optional</code> is an object wrapper which indicates whether it is valid or not.</p>
+<div id="declaring-an-optional-object" class="section level3">
+<h3>Declaring an optional object</h3>
+<p>An optional variable can be set to <code>some(object)</code> or to <code>none</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">some</span>(<span class="dv">5</span>)
+<span class="kw">class</span>(a)</code></pre></div>
+<pre><code>## [1] &quot;optional&quot;</code></pre>
+<p>Operators and print will have the same behavior with an <code>optional</code> than with its base type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">==</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Note that <code>some(some(obj))</code> equals <code>some(obj)</code> and that <code>some(none)</code> equals <code>FALSE</code>.</p>
+</div>
+<div id="optionals-on-functions" class="section level3">
+<h3>Optionals on functions</h3>
+<p>Given a function <code>f</code>, to handle properly <code>optional</code> arguments and wraps its return type into an <code>optional</code>, one should use <code>make_opt</code>:</p>
+<pre><code>f_opt &lt;- make_opt(f)</code></pre>
+<ol style="list-style-type: decimal">
+<li>Every <code>optional</code> argument passed to <code>f_opt</code> will be converted to its original type before being sent to <code>f</code>. If one or more of them is <code>none</code>, several behaviors are available (see <code>?make_opt</code>).</li>
+<li>If <code>f</code> returns null, or if an error is thrown during its execution, then <code>f_opt</code> returns <code>none</code>. Else it will return <code>some(f(...))</code></li>
+</ol>
+<p>For instance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c_opt &lt;-<span class="st"> </span><span class="kw">make_opt</span>(c, <span class="dt">stop_if_none =</span> <span class="ot">FALSE</span>)
+<span class="kw">c_opt</span>(<span class="kw">some</span>(<span class="dv">2</span>), none, <span class="kw">some</span>(<span class="dv">5</span>))</code></pre></div>
+<pre><code>## [1] 2 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c_opt</span>()</code></pre></div>
+<pre><code>## [1] &quot;None&quot;</code></pre>
+</div>
+</div>
+<div id="pattern-matching" class="section level2">
+<h2>Pattern matching</h2>
+<p>Patterns are used in many functional languages in order to process variables in an exhaustive way.</p>
+<p>The syntax is the following:</p>
+<pre><code>match_with( variable,
+pattern , result-function,
+...</code></pre>
+<p>If <code>variable</code> matches a <code>pattern</code>, <code>result-function</code> is called. For comparing optional types, it is a better habit to use <code>match_with</code> than a conditional statement.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">5</span>
+<span class="kw">match_with</span>(a,
+  . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">some</span>(.),          print,
+  none,                   <span class="cf">function</span>() <span class="kw">print</span>(<span class="st">&quot;Error!&quot;</span>)
+)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Each <code>pattern</code> can be either:</p>
+<ul>
+<li>an object or a primitive type (direct comparison with <code>variable</code>)</li>
+<li>a list (match if <code>variable</code> is in the list)</li>
+<li>a <code>magrittr</code> functional sequence that matches if it returns <code>variable</code>. The dot <code>.</code> denotes the variable to be matched.</li>
+</ul></li>
+<li><p>If <code>result-function</code> takes no arguments, it will be called as is. Else, the only argument that will be sent is <code>variable</code>.</p></li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">5</span>
+<span class="kw">match_with</span>(a,
+  <span class="dv">1</span>,                      <span class="cf">function</span>() <span class="kw">print</span>(<span class="st">&quot;Matched exact value&quot;</span>),
+  <span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),          <span class="cf">function</span>(x) <span class="kw">paste</span>(<span class="st">&quot;Matched in list:&quot;</span>, x),
+  . <span class="op">%&gt;%</span><span class="st"> </span><span class="cf">if</span> (. <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span>).,      <span class="cf">function</span>(x) <span class="kw">paste</span>(<span class="st">&quot;Matched in condition:&quot;</span>, x)
+)</code></pre></div>
+<pre><code>## [1] &quot;Matched in condition: 5&quot;</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
