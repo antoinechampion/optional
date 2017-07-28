@@ -2,28 +2,40 @@
 % Please edit documentation in R/optional.R
 \name{some}
 \alias{some}
-\title{Some
-Make a variable optional
-
-Note that `some(some(i)) == some(i)` 
-and `some(none) == FALSE`}
+\title{Some}
 \usage{
-some(arg)
+a <- some(5)
 }
 \arguments{
 \item{arg}{The variable to make optional}
 }
 \value{
-`some(arg)`
+\code{arg} as \code{optional}
+}
+\description{
+Make a variable optional. \code{optional} is an object 
+wrapper which indicates whether the object is valid or not.
+}
+\details{
+Note that \code{some(some(i)) == some(i)}
+and \code{some(none) == FALSE}
+[user](UserGuide.html)
+
+Operators and print will have the same behavior with 
+an optional than with its base type.
 }
 \examples{
 a <- some(5)
 class(a)
-> [1] "optional"
+## [1] "optional"
+
 a == 5
-> [1] TRUE
+## [1] TRUE
+
+a
+## [1] 5
 }
 \seealso{
-`none`, `opt_unwrap`
+none, opt_unwrap, make_opt
 }
 

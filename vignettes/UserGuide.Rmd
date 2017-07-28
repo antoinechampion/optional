@@ -15,11 +15,11 @@ This package adds an `optional` type, similar to `Option` in F#, OCaml and Scala
 
 It should be used instead of `NULL` for values that might be missing or otherwise invalid.
 
-This package also introduce pattern matching.
+This package also introduces pattern matching.
 
 ## Using the optional type ##
 
-`optional` is an object wrapper which indicates whether it is valid or not.
+`optional` is an object wrapper which indicates whether the object is valid or not.
 
 ### Declaring an optional object ###
 
@@ -47,12 +47,12 @@ f_opt <- make_opt(f)
 ```
 
 1. Every `optional` argument passed to `f_opt` will be converted to its original type before being sent to `f`. If one or more of them is `none`, several behaviors are available (see `?make_opt`).
-2. If `f` returns null, or if an error is thrown during its execution, then `f_opt` returns `none`. Else it will return `some(f(...))`
+2. If `f` returns null, or if an error is thrown during its execution, then `f_opt` returns `none`. Else it will return `some(f(...))`.
 
 For instance:
 
 ```{r}
-c_opt <- make_opt(c, stop_if_none = FALSE)
+c_opt <- make_opt(c)
 c_opt(some(2), none, some(5))
 c_opt()
 ```
@@ -70,7 +70,7 @@ pattern , result-function,
 ```
 
 If `variable` matches a `pattern`, `result-function` is called.
-For comparing optional types, it is a better habit to use `match_with` than a conditional statement.
+For comparing optional types, it is a better habit to use `match_with` rather than a conditional statement.
 
 ```{r}
 a <- 5
