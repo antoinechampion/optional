@@ -6,7 +6,7 @@
 \title{None}
 \format{An object of class \code{optional} of length 1.}
 \usage{
-a <- none
+none
 }
 \description{
 Indicates an invalid variable.

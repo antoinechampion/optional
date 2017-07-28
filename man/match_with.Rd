@@ -4,9 +4,7 @@
 \alias{match_with}
 \title{Match With}
 \usage{
-match_with(variable,
-pattern, result-function,
-...
+match_with(x, ...)
 }
 \arguments{
 \item{x}{The variable to pattern-match}
@@ -21,6 +19,9 @@ The object wrapped in \code{opt}
 Function to check a variable using pattern matching.
 }
 \details{
+\code{match_with(variable,
+pattern, result-function,
+...}
 If \code{variable} matches a \code{pattern}, \code{result-function}
 is called. For comparing optional types, it is a better habit to 
 use \code{match_with} than a conditional statement.
@@ -36,6 +37,8 @@ use \code{match_with} than a conditional statement.
 }
 }
 \examples{
+library(magrittr)
+
 a <- 5
 match_with(a,
   . \%>\% some(.),     print,

@@ -4,7 +4,7 @@
 \alias{make_opt}
 \title{Make optional}
 \usage{
-f_opt <- make_opt(f)
+make_opt(fun, stop_if_none = FALSE, fun_if_none = NULL)
 }
 \arguments{
 \item{fun}{The function to make optional, might be any 

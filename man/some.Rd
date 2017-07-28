@@ -4,7 +4,7 @@
 \alias{some}
 \title{Some}
 \usage{
-a <- some(5)
+some(arg)
 }
 \arguments{
 \item{arg}{The variable to make optional}
@@ -13,13 +13,14 @@ a <- some(5)
 \code{arg} as \code{optional}
 }
 \description{
-Make a variable optional. \code{optional} is an object 
-wrapper which indicates whether the object is valid or not.
+Make a variable optional. 
+
+\code{optional} is an object wrapper which indicates
+whether the object is valid or not.
 }
 \details{
 Note that \code{some(some(i)) == some(i)}
 and \code{some(none) == FALSE}
-[user](UserGuide.html)
 
 Operators and print will have the same behavior with 
 an optional than with its base type.

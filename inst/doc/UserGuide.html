@@ -90,8 +90,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">class</span>(a)</code></pre></div>
 <pre><code>## [1] &quot;optional&quot;</code></pre>
 <p>Operators and print will have the same behavior with an <code>optional</code> than with its base type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">some</span>(<span class="dv">5</span>)
-a <span class="op">==</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a <span class="op">==</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
 <pre><code>## [1] 5</code></pre>
@@ -121,7 +120,9 @@ a <span class="op">==</span><span class="st"> </span><span class="dv">5</span></
 pattern , result-function,
 ...</code></pre>
 <p>If <code>variable</code> matches a <code>pattern</code>, <code>result-function</code> is called. For comparing optional types, it is a better habit to use <code>match_with</code> rather than a conditional statement.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">5</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+
+a &lt;-<span class="st"> </span><span class="dv">5</span>
 <span class="kw">match_with</span>(a,
   . <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">some</span>(.),          print,
   none,                   <span class="cf">function</span>() <span class="kw">print</span>(<span class="st">&quot;Error!&quot;</span>)

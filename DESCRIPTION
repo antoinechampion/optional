@@ -1,14 +1,13 @@
 Package: optional
 Type: Package
-Title: Optional
+Title: Optional Types and Pattern Matching
 Version: 1.0
 Date: 2017-07-26
 Author: Antoine Champion
 Maintainer: Antoine Champion <antoine.champion@outlook.com>
-Description: Introduce optional types and pattern matching (some, none, match with).
+Description: Introduces some and none, as well as match_with from functional languages.
 License: Boost Software License 1.0
-Imports: magrittr
+Imports: methods, magrittr
 RoxygenNote: 5.0.1
-Suggests: knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown
 VignetteBuilder: knitr

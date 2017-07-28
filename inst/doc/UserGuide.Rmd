@@ -7,6 +7,7 @@ vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{magrittr}
 ---
 
 ## Introduction ##
@@ -32,7 +33,6 @@ class(a)
 
 Operators and print will have the same behavior with an `optional` than with its base type.
 ```{r}
-a <- some(5)
 a == 5
 a
 ```
@@ -74,6 +74,8 @@ If `variable` matches a `pattern`, `result-function` is called.
 For comparing optional types, it is a better habit to use `match_with` rather than a conditional statement.
 
 ```{r}
+library(magrittr)
+
 a <- 5
 match_with(a,
   . %>% some(.),          print,

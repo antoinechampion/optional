@@ -3,8 +3,12 @@
 #     (See accompanying file LICENSE_1_0.txt or copy at
 #           http://www.boost.org/LICENSE_1_0.txt)
 
+#' @importFrom methods formalArgs
+#' @importFrom magrittr %>%
+NULL
+
 #' @title       Some
-#' @usage       a <- some(5)
+#' @usage       some(arg)
 #' @description
 #' Make a variable optional. 
 #'
@@ -47,7 +51,6 @@ some <- function(arg) {
 }
 
 #' @title       None
-#' @usage       a <- none
 #' @description
 #' Indicates an invalid variable.
 #' Might be returned by an optional function 
@@ -63,9 +66,7 @@ none <- some(TRUE)
 attr(none, "option_none") <- TRUE
 
 #' @title       Option Unwrap
-#' @usage
-#' a <- some(5)
-#' a <- opt_unwrap(a)
+#' @usage 		opt_unwrap(opt)
 #' 
 #' @description
 #' Cast an optional object to its base type.
@@ -116,7 +117,7 @@ opt_unwrap <- function(opt) {
 #' @title                       Make optional
 #' @description
 #' Make an existing function accepting and returning optionals.
-#' @usage f_opt <- make_opt(f)
+#' @usage make_opt(fun, stop_if_none = FALSE, fun_if_none = NULL)
 #' @details
 #' \enumerate{
 #'   \item Every optional argument passed to \code{f_opt} will be  
@@ -190,14 +191,14 @@ make_opt <- function(fun, stop_if_none = FALSE, fun_if_none = NULL) {
 
 # Print generic overload
 #' @export
-print.optional <- function(opt, ...) {
-  if (attr(opt, "option_none")) {
+print.optional <- function(x, ...) {
+  if (attr(x, "option_none")) {
     print("None", ...)
   } else {
-    attr(opt, "class") <- attr(opt, "option_class")
-    attr(opt, "option_class") <- NULL
-    attr(opt, "option_none") <- NULL
-    print(opt, ...)
+    attr(x, "class") <- attr(x, "option_class")
+    attr(x, "option_class") <- NULL
+    attr(x, "option_none") <- NULL
+    print(x, ...)
   }
 }
 
@@ -211,14 +212,14 @@ opt_call_match_ <- function(fun, x) {
 }
 
 #' @title       Match With
-#' @usage
-#' match_with(variable,
-#' pattern, result-function,
-#' ...
+#' @usage		match_with(x, ...)
 #' 
 #' @description
 #' Function to check a variable using pattern matching.
 #' @details
+#' \code{match_with(variable,
+#' pattern, result-function,
+#' ...}
 #' If \code{variable} matches a \code{pattern}, \code{result-function}
 #' is called. For comparing optional types, it is a better habit to 
 #' use \code{match_with} than a conditional statement.
@@ -239,6 +240,8 @@ opt_call_match_ <- function(fun, x) {
 #' @return      The object wrapped in \code{opt}
 #' @seealso     some, none
 #' @examples
+#' library(magrittr)
+#'
 #' a <- 5
 #' match_with(a,
 #'   . %>% some(.),     print,

@@ -4,8 +4,7 @@
 \alias{opt_unwrap}
 \title{Option Unwrap}
 \usage{
-a <- some(5)
-a <- opt_unwrap(a)
+opt_unwrap(opt)
 }
 \arguments{
 \item{opt}{The optional variable to cast back}
