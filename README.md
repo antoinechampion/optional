@@ -14,11 +14,10 @@
 
 <meta name="date" content="2017-07-27" />
 
-<h1 class="title toc-ignore">User Guide</h1>
-<h4 class="author"><em>Antoine Champion</em></h4>
-<h4 class="date"><em>2017-07-27</em></h4>
-
-
+<div id="installtion" class="section level2">
+<h2>Installation</h2>
+<p>You can install this package from this repository by running <code>devtools::install_github("antoinechampion/optional")</code>.
+</div>
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
