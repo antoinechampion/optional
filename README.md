@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/antoinechampion/optional.svg?branch=master)](https://travis-ci.org/antoinechampion/optional)
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
