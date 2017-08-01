@@ -45,14 +45,14 @@ Note that `some(some(obj))` equals `some(obj)` and that `some(none)` equals `FAL
 
 ### Optionals on functions ###
 
-Given a function `f`, to handle properly `optional` arguments and wraps its return  type into an `optional`, one should use `make_opt`:
+Given a function `f()`, to handle properly `optional` arguments and wraps its return  type into an `optional`, one should use `make_opt()` the following way:
 
 ```
 f_opt <- make_opt(f)
 ```
 
-1. Every `optional` argument passed to `f_opt` will be converted to its original type before being sent to `f`. If one or more of them is `none`, several behaviors are available (see `?make_opt`).
-2. If `f` returns null, or if an error is thrown during its execution, then `f_opt` returns `none`. Else it will return `some(f(...))`.
+1. Every `optional` argument passed to `f_opt()` will be converted to its original type before being sent to `f()`. If one or more of them is `none`, several behaviors are available (see `?make_opt`).
+2. If `f()` returns null, or if an error is thrown during its execution, then `f_opt()` returns `none`. Else it will return `some(f(...))`.
 
 For instance:
 
@@ -75,7 +75,7 @@ pattern , result-function,
 ```
 
 If `variable` matches a `pattern`, `result-function` is called.
-For comparing optional types, it is a better habit to use `match_with` rather than a conditional statement.
+For comparing optional types, it is a better habit to use `match_with()` rather than a conditional statement.
 
 ```{r}
 library(magrittr)

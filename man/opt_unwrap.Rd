@@ -31,6 +31,6 @@ class(a)
 ## [1] "numeric"
 }
 \seealso{
-make_opt, match_with
+make_opt(), match_with()
 }
 

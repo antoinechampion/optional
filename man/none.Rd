@@ -11,7 +11,7 @@ none
 \description{
 Indicates an invalid variable.
 Might be returned by an optional function 
-(see \code{?make_opt})
+(see \code{?make_opt()})
 }
 \examples{
 a <- none
@@ -19,7 +19,7 @@ a
 ## [1] None
 }
 \seealso{
-some, opt_unwrap
+some(), opt_unwrap()
 }
 \keyword{datasets}
 

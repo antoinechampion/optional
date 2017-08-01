@@ -37,6 +37,6 @@ a
 ## [1] 5
 }
 \seealso{
-none, opt_unwrap, make_opt
+none, opt_unwrap(), make_opt()
 }
 

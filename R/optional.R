@@ -23,7 +23,7 @@ NULL
 #' 
 #' @param arg   The variable to make optional
 #' @return      \code{arg} as \code{optional}
-#' @seealso     none, opt_unwrap, make_opt
+#' @seealso     none, opt_unwrap(), make_opt()
 #' @examples
 #' a <- some(5)
 #' class(a)
@@ -54,9 +54,9 @@ some <- function(arg) {
 #' @description
 #' Indicates an invalid variable.
 #' Might be returned by an optional function 
-#' (see \code{?make_opt})
+#' (see \code{?make_opt()})
 #'
-#' @seealso     some, opt_unwrap
+#' @seealso     some(), opt_unwrap()
 #' @examples
 #' a <- none
 #' a
@@ -78,7 +78,7 @@ attr(none, "option_none") <- TRUE
 #' @param opt   The optional variable to cast back
 #' @return      The object wrapped in \code{opt}. 
 #'              \code{NULL} if \code{opt} is \code{none}.
-#' @seealso     make_opt, match_with
+#' @seealso     make_opt(), match_with()
 #' @examples
 #' a <- some(5)
 #' class(a)
@@ -120,17 +120,17 @@ opt_unwrap <- function(opt) {
 #' @usage make_opt(fun, stop_if_none = FALSE, fun_if_none = NULL)
 #' @details
 #' \enumerate{
-#'   \item Every optional argument passed to \code{f_opt} will be  
+#'   \item Every optional argument passed to \code{f_opt()} will be  
 #'         converted to its original type before being sent 
-#'         to \code{f}. If one or more of them is \code{none},  
+#'         to \code{f()}. If one or more of them is \code{none},  
 #'         several behaviors are available (see argument list).
-#'   \item If \code{f} returns null, or if an error is thrown 
-#'         during its execution, then \code{f_opt} returns 
+#'   \item If \code{f()} returns null, or if an error is thrown 
+#'         during its execution, then \code{f_opt()} returns 
 #'         \code{none}. Else it will return  \code{some(f(...))}.
 #' }
 #' @param fun                   The function to make optional, might be any 
 #'                              function.
-#' @param stop_if_none          If true, \code{f_opt} will stop and return 
+#' @param stop_if_none          If true, \code{f_opt()} will stop and return 
 #'                              \code{none} if one of the arguments provided 
 #'                              is \code{none}. Else, \code{none} will be 
 #'                              sent as \code{NULL} to the function.
@@ -139,8 +139,8 @@ opt_unwrap <- function(opt) {
 #'                              is \code{none}.
 #'                              *Default: NULL*
 #' @return                      The optional function. To be used with the
-#'                              same parameters than \code{fun}.
-#' @seealso                     some, none, match_with
+#'                              same parameters than \code{fun()}.
+#' @seealso                     some(), none(), match_with()
 #' @examples
 #' c_opt <- make_opt(c)
 #' c_opt(some(2), none, some(5))
@@ -150,8 +150,8 @@ opt_unwrap <- function(opt) {
 #' @export
 make_opt <- function(fun, stop_if_none = FALSE, fun_if_none = NULL) {
   return(function(...) {
-    args = list(...)
-    to_null = c()
+    args <- list(...)
+    to_null <- c()
 
     if (length(args) != 0) {
       for (i in 1:length(args)) {
@@ -227,8 +227,8 @@ opt_call_match_ <- function(fun, x) {
 #' \enumerate{
 #'   \item Each \code{pattern} can be either:
 #'     \itemize{
-#'       \item an object or a primitive type(direct comparison with \code{variable}),
-#'       \item a list(match if \code{variable} is in the list),
+#'       \item an object or a primitive type (direct comparison with \code{variable}),
+#'       \item a list (match if \code{variable} is in the list),
 #'       \item a \code{magrittr} functional sequence that matches if it returns \code{variable} . The dot \code{.} denotes the variable to be matched.
 #'     }
 #'   \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}.
@@ -238,7 +238,7 @@ opt_call_match_ <- function(fun, x) {
 #' @param ...   Pairs of one pattern (value or list or magrittr 
 #'              sequence) and one result function
 #' @return      The object wrapped in \code{opt}
-#' @seealso     some, none
+#' @seealso     some(), none
 #' @examples
 #' library(magrittr)
 #'

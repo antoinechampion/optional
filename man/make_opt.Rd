@@ -10,7 +10,7 @@ make_opt(fun, stop_if_none = FALSE, fun_if_none = NULL)
 \item{fun}{The function to make optional, might be any 
 function.}
 
-\item{stop_if_none}{If true, \code{f_opt} will stop and return 
+\item{stop_if_none}{If true, \code{f_opt()} will stop and return 
 \code{none} if one of the arguments provided 
 is \code{none}. Else, \code{none} will be 
 sent as \code{NULL} to the function.
@@ -22,19 +22,19 @@ is \code{none}.
 }
 \value{
 The optional function. To be used with the
-                             same parameters than \code{fun}.
+                             same parameters than \code{fun()}.
 }
 \description{
 Make an existing function accepting and returning optionals.
 }
 \details{
 \enumerate{
-  \item Every optional argument passed to \code{f_opt} will be  
+  \item Every optional argument passed to \code{f_opt()} will be  
         converted to its original type before being sent 
-        to \code{f}. If one or more of them is \code{none},  
+        to \code{f()}. If one or more of them is \code{none},  
         several behaviors are available (see argument list).
-  \item If \code{f} returns null, or if an error is thrown 
-        during its execution, then \code{f_opt} returns 
+  \item If \code{f()} returns null, or if an error is thrown 
+        during its execution, then \code{f_opt()} returns 
         \code{none}. Else it will return  \code{some(f(...))}.
 }
 }
@@ -46,6 +46,6 @@ c_opt()
 ## [1] "None"
 }
 \seealso{
-some, none, match_with
+some(), none(), match_with()
 }
 

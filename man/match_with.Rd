@@ -29,8 +29,8 @@ use \code{match_with} than a conditional statement.
 \enumerate{
   \item Each \code{pattern} can be either:
     \itemize{
-      \item an object or a primitive type(direct comparison with \code{variable}),
-      \item a list(match if \code{variable} is in the list),
+      \item an object or a primitive type (direct comparison with \code{variable}),
+      \item a list (match if \code{variable} is in the list),
       \item a \code{magrittr} functional sequence that matches if it returns \code{variable} . The dot \code{.} denotes the variable to be matched.
     }
   \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}.
@@ -54,6 +54,6 @@ match_with(a,
 ## [1] "Matched in condition: 5"
 }
 \seealso{
-some, none
+some(), none
 }
 

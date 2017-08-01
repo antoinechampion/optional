@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/antoinechampion/optional.svg?branch=master)](https://travis-ci.org/antoinechampion/optional)
+[![Build Status](https://travis-ci.org/antoinechampion/optional.svg?branch=master)](https://travis-ci.org/antoinechampion/optional) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/optional)](https://cran.r-project.org/package=optional)
 
 <!DOCTYPE html>
 
@@ -18,7 +18,7 @@
 
 <div id="installtion" class="section level2">
 <h2>Installation</h2>
-<p>You can install this package from this repository by running <code>devtools::install_github("antoinechampion/optional")</code>.
+<p>You can install this package from this repository by running <code>devtools::install_github("antoinechampion/optional")</code>, or from the CRAN by running <code>install.packages("optional")</code>.
 </div>
 
 <div id="introduction" class="section level2">
