@@ -1,3 +1,6 @@
+## ----include = FALSE-----------------------------------------------------
+library(optional)
+
 ## ------------------------------------------------------------------------
 a <- some(5)
 class(a)
@@ -16,15 +19,15 @@ library(magrittr)
 
 a <- 5
 match_with(a,
-  . %>% some(.),          print,
-  none,                   function() print("Error!")
+  . %>% some(.),          paste,
+  none,                   function() "Error!"
 )
 
 ## ------------------------------------------------------------------------
-a <- 5
+a <- 4
 match_with(a,
-  1,                      function() print("Matched exact value"),
-  list(2, 3, 4),          function(x) paste("Matched in list:", x),
-  . %>% if (. > 4).,      function(x) paste("Matched in condition:", x)
+  1,                 function() "Matched exact value",
+  list(2, 3, 4),     fallthrough(function() "Matched in list"),
+  . %>% if (. > 3)., function(x) paste0("Matched in condition: ",x,">3")
 )
 
