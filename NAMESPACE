@@ -2,6 +2,7 @@
 
 S3method("==",optional)
 S3method(print,optional)
+export(fallthrough)
 export(make_opt)
 export(match_with)
 export(none)

@@ -82,24 +82,23 @@ library(magrittr)
 
 a <- 5
 match_with(a,
-  . %>% some(.),          print,
-  none,                   function() print("Error!")
+  . %>% some(.),          paste,
+  none,                   function() "Error!"
 )
 ```
 
 1. Each `pattern` can be either:
-
-    * an object or a primitive type (direct comparison with `variable`)
-    * a list (match if `variable` is in the list)
+    * an object or a primitive type (direct comparison with `variable`),
+    * a list (match if `variable` is in the list),
     * a `magrittr` functional sequence that matches if it returns `variable`. The dot `.` denotes the variable to be matched.
-
-2. If `result-function` takes no arguments, it will be called as is. Else, the only argument that will be sent is `variable`.
+2. If `result-function` takes no arguments, it will be called as is. Else, the only argument that will be sent is `variable`. You can also use the fallthrough function `fallthrough()` to permit the matching to continue even if the current pattern is matched.
 
 ```{r}
-a <- 5
+a <- 4
 match_with(a,
-  1,                      function() print("Matched exact value"),
-  list(2, 3, 4),          function(x) paste("Matched in list:", x),
-  . %>% if (. > 4).,      function(x) paste("Matched in condition:", x)
+  1,                 function() "Matched exact value",
+  list(2, 3, 4),     fallthrough(function() "Matched in list"),
+  . %>% if (. > 3)., function(x) paste0("Matched in condition: ",x,">3")
 )
 ```
+

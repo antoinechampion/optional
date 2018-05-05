@@ -39,4 +39,3 @@ a
 \seealso{
 none, opt_unwrap(), make_opt()
 }
-

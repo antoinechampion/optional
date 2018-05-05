@@ -33,4 +33,3 @@ class(a)
 \seealso{
 make_opt(), match_with()
 }
-

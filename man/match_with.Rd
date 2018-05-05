@@ -12,9 +12,6 @@ match_with(x, ...)
 \item{...}{Pairs of one pattern (value or list or magrittr 
 sequence) and one result function}
 }
-\value{
-The object wrapped in \code{opt}
-}
 \description{
 Function to check a variable using pattern matching.
 }
@@ -33,7 +30,8 @@ use \code{match_with} than a conditional statement.
       \item a list (match if \code{variable} is in the list),
       \item a \code{magrittr} functional sequence that matches if it returns \code{variable} . The dot \code{.} denotes the variable to be matched.
     }
-  \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}.
+  \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}. 
+  You can also use the fallthrough function \code{fallthrough()} to permit the matching to continue even if the current pattern is matched.
 }
 }
 \examples{
@@ -41,13 +39,13 @@ library(magrittr)
 
 a <- 5
 match_with(a,
-  . \%>\% some(.),     print,
-  none, function()   print("Error!")
+  . \%>\% some(.),     paste,
+  none, function()   "Error!"
 )
 ## [1] 5
 
 match_with(a,
-  1, function()        print("Matched exact value"),
+  1,                   function()  "Matched exact value",
   list(2, 3, 4),       function(x) paste("Matched in list:", x),
   . \%>\% if (. > 4) .,  function(x) paste("Matched in condition:", x)
 )
@@ -56,4 +54,3 @@ match_with(a,
 \seealso{
 some(), none
 }
-

@@ -48,4 +48,3 @@ c_opt()
 \seealso{
 some(), none(), match_with()
 }
-

@@ -1,4 +1,4 @@
-#           Copyright(c) Antoine Champion 2017.
+#           Copyright(c) Antoine Champion 2017-2018.
 #  Distributed under the Boost Software License, Version 1.0 .
 #     (See accompanying file LICENSE_1_0.txt or copy at
 #           http://www.boost.org/LICENSE_1_0.txt)
@@ -36,12 +36,15 @@ NULL
 #' ## [1] 5
 #' @export
 some <- function(arg) {
+  if (missing(arg)) return(none)
+  
+  if (is.null(arg)) return(none)
+  
   if (class(arg) == "optional") {
     if (attr(arg, "option_none")) return(FALSE)
-    else                          return(arg)
-    }
+    else return(arg)
+  }
 
-  if (is.null(arg)) return(none)
 
   attr(arg, "option_class") <- attr(arg, "class")
   attr(arg, "option_none") <- FALSE
@@ -90,7 +93,7 @@ attr(none, "option_none") <- TRUE
 #' @export
 opt_unwrap <- function(opt) {
   if (class(opt) != "optional")
-        return(opt)
+    return(opt)
 
   if (attr(opt, "option_none"))
     return(NULL)
@@ -186,10 +189,10 @@ make_opt <- function(fun, stop_if_none = FALSE, fun_if_none = NULL) {
       return(none)
     else
       return(some(ret))
-  })
+    })
 }
 
-# Print generic overload
+# Print generic overload for optionals
 #' @export
 print.optional <- function(x, ...) {
   if (attr(x, "option_none")) {
@@ -205,10 +208,12 @@ print.optional <- function(x, ...) {
 # If fun has zero arguments, calls fun()
 # else calls fun(x)
 opt_call_match_ <- function(fun, x) {
-  if (length(formalArgs(fun)) != 0)
-    fun(x)
-  else
-    fun()
+  if (length(formalArgs(fun)) != 0) {
+    return(fun(x))
+  }
+  else {
+    return(fun())
+  }
 }
 
 #' @title       Match With
@@ -231,26 +236,26 @@ opt_call_match_ <- function(fun, x) {
 #'       \item a list (match if \code{variable} is in the list),
 #'       \item a \code{magrittr} functional sequence that matches if it returns \code{variable} . The dot \code{.} denotes the variable to be matched.
 #'     }
-#'   \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}.
+#'   \item If \code{result-function} takes no arguments, it will be called as is. Else, the only argument that will be sent is \code{variable}. 
+#'   You can also use the fallthrough function \code{fallthrough()} to permit the matching to continue even if the current pattern is matched.
 #' }
 #'
 #' @param x     The variable to pattern-match
 #' @param ...   Pairs of one pattern (value or list or magrittr 
 #'              sequence) and one result function
-#' @return      The object wrapped in \code{opt}
 #' @seealso     some(), none
 #' @examples
 #' library(magrittr)
 #'
 #' a <- 5
 #' match_with(a,
-#'   . %>% some(.),     print,
-#'   none, function()   print("Error!")
+#'   . %>% some(.),     paste,
+#'   none, function()   "Error!"
 #' )
 #' ## [1] 5
 #'
 #' match_with(a,
-#'   1, function()        print("Matched exact value"),
+#'   1,                   function()  "Matched exact value",
 #'   list(2, 3, 4),       function(x) paste("Matched in list:", x),
 #'   . %>% if (. > 4) .,  function(x) paste("Matched in condition:", x)
 #' )
@@ -259,24 +264,71 @@ opt_call_match_ <- function(fun, x) {
 match_with <- function(x, ...) {
   args <- list(...)
   n <- length(args)
-  if (n < 0) return(none)
-
+  if (n < 3 || n %% 2 != 0) {
+    write("match_with: Wrong number of parameters", stderr())
+    return(none)
+  }
+  
+  c_opt <- make_opt(c)
+  res_ret <- none
   for (i in seq(1, n, 2)) {
-    if ("fseq" %in% class(args[[i]])) {
-      ret <- args[[i]](x)
-      if (!is.null(ret) && ret == x) {
-        return(opt_call_match_(args[[i + 1]], x))
+    pattern <- args[[i]]
+    res_function <- args[[i + 1]]
+    
+    if ("fseq" %in% class(pattern)) { # If pattern is a magrittr sequence
+      ret <- pattern(x)
+      if (!is.null(ret) && x == ret) {
+        res_ret <- c_opt(res_ret, opt_call_match_(res_function, x))
+        if (is.null(attr(res_function, "option_fallthrough"))) {
+          # If there is no fallthrough then break
+          break
+        }
       }
     }
-    else if ("list" %in% class(args[[i]])) {
-      if (x %in% args[[i]]) {
-        return(opt_call_match_(args[[i + 1]], x))
+    else if ("list" %in% class(pattern)) { # If pattern is a list
+      if (x %in% pattern) {
+        res_ret <- c_opt(res_ret, opt_call_match_(res_function, x))
+        if (is.null(attr(res_function, "option_fallthrough"))) {
+          break
+        }
       }
     }
-    else if (isTRUE(all.equal(x, args[[i]]))) {
-      return(opt_call_match_(args[[i + 1]], x))
+    else if (x == pattern) { # If pattern is a single value
+      res_ret <- c_opt(res_ret, opt_call_match_(res_function, x))
+      if (is.null(attr(res_function, "option_fallthrough"))) {
+        break
+      }
     }
   }
+  return(res_ret)
+}
 
-  return(none)
+#' @title Fallthrough function
+#' @description Permit a pattern matching to continue even if its argument is executed.
+#' @usage fallthrough(fun)
+#' @param fun A result function used in \code{make_opt()}
+#' @details \code{fallthrough(fun)} can be applied to a result function \code{fun} inside a 
+#' \code{match_with()} pattern.
+#' If there is a match, this will make the pattern matching
+#' continue through the other conditions at the end of the result function \code{fun}.
+#' \code{match_with(variable,
+#' pattern, fallthrough(result-function),
+#' ...}
+#' @examples
+#' library(magrittr)
+#'
+#' a <- 4
+#' match_with(a,
+#'   . %>% if (. %% 2 == 0)., 
+#'   fallthrough( function() "This number is even" ),
+#'   . %>% if ( sqrt(.) == round(sqrt(.)) ).,  
+#'   function() "This number is a perfect square"
+#' )
+#' ## [1] "This number is even"   "This number is a perfect square"
+#' @export
+fallthrough <- function(fun) {
+  if (class(fun) == "function")
+    attr(fun, "option_fallthrough") <- TRUE
+
+  return(fun)
 }
