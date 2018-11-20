@@ -2,7 +2,7 @@ Package: optional
 Type: Package
 Title: Optional Types and Pattern Matching
 Version: 2.0
-Date: 2018-05-04
+Date: 2018-11-20
 Author: Antoine Champion
 Maintainer: Antoine Champion <antoine.champion@outlook.com>
 Description: Introduces optional types with some() and none, as well as match_with() from functional languages.
