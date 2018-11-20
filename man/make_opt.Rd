@@ -35,16 +35,16 @@ Make an existing function accepting and returning optionals.
         several behaviors are available (see argument list).
   \item If \code{f()} returns null, or if an error is thrown 
         during its execution, then \code{f_opt()} returns 
-        \code{none}. Else it will return  \code{some(f(...))}.
+        \code{none}. Else it will return  \code{option(f(...))}.
 }
 }
 \examples{
 c_opt <- make_opt(c)
-c_opt(some(2), none, some(5))
+c_opt(option(2), none, option(5))
 ## [1] 2 5
 c_opt()
 ## [1] "None"
 }
 \seealso{
-some(), none(), match_with()
+option(), none(), match_with()
 }

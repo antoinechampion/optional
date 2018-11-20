@@ -24,14 +24,14 @@ This package also introduces pattern matching.
 
 ## Using the optional type ##
 
-`optional` is an object wrapper which indicates whether the object is valid or not.
+`option` is an object wrapper which indicates whether the object is valid or not.
 
 ### Declaring an optional object ###
 
-An optional variable can be set to `some(object)` or to `none`.
+An optional variable can be set to `option(object)` or to `none`.
 
 ```{r}
-a <- some(5)
+a <- option(5)
 class(a)
 ```
 
@@ -41,7 +41,15 @@ a == 5
 a
 ```
 
-Note that `some(some(obj))` equals `some(obj)` and that `some(none)` equals `FALSE`.
+Note that `option(option(obj))` equals `option(obj)` and that `option(none)` equals `FALSE`.
+
+To check whether an `optional` object is set to a value or to `none`, one can use the function `some()`.
+```{r}
+a <- option(5)
+some(a)
+a <- none
+some(a)
+``` 
 
 ### Optionals on functions ###
 
@@ -52,13 +60,13 @@ f_opt <- make_opt(f)
 ```
 
 1. Every `optional` argument passed to `f_opt()` will be converted to its original type before being sent to `f()`. If one or more of them is `none`, several behaviors are available (see `?make_opt`).
-2. If `f()` returns null, or if an error is thrown during its execution, then `f_opt()` returns `none`. Else it will return `some(f(...))`.
+2. If `f()` returns null, or if an error is thrown during its execution, then `f_opt()` returns `none`. Else it will return `optional(f(...))`.
 
 For instance:
 
 ```{r}
 c_opt <- make_opt(c)
-c_opt(some(2), none, some(5))
+c_opt(option(2), none, option(5))
 c_opt()
 ```
 	
@@ -82,7 +90,7 @@ library(magrittr)
 
 a <- 5
 match_with(a,
-  . %>% some(.),          paste,
+  . %>% option(.),          paste,
   none,                   function() "Error!"
 )
 ```

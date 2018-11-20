@@ -39,7 +39,7 @@ library(magrittr)
 
 a <- 5
 match_with(a,
-  . \%>\% some(.),     paste,
+  . \%>\% option(.),     paste,
   none, function()   "Error!"
 )
 ## [1] 5
@@ -52,5 +52,5 @@ match_with(a,
 ## [1] "Matched in condition: 5"
 }
 \seealso{
-some(), none
+option(), none
 }

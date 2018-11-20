@@ -19,6 +19,6 @@ a
 ## [1] None
 }
 \seealso{
-some(), opt_unwrap()
+option(), opt_unwrap()
 }
 \keyword{datasets}

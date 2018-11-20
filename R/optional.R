@@ -7,16 +7,16 @@
 #' @importFrom magrittr %>%
 NULL
 
-#' @title       Some
-#' @usage       some(arg)
+#' @title       option
+#' @usage       option(arg)
 #' @description
 #' Make a variable optional. 
 #'
-#' \code{optional} is an object wrapper which indicates
+#' \code{option} is an object wrapper which indicates
 #' whether the object is valid or not.
 #' @details
-#' Note that \code{some(some(i)) == some(i)}
-#' and \code{some(none) == FALSE}
+#' Note that \code{option(option(i)) == option(i)}
+#' and \code{option(none) == FALSE}
 #' 
 #' Operators and print will have the same behavior with 
 #' an optional than with its base type.
@@ -25,7 +25,7 @@ NULL
 #' @return      \code{arg} as \code{optional}
 #' @seealso     none, opt_unwrap(), make_opt()
 #' @examples
-#' a <- some(5)
+#' a <- option(5)
 #' class(a)
 #' ## [1] "optional"
 #'
@@ -35,7 +35,7 @@ NULL
 #' a
 #' ## [1] 5
 #' @export
-some <- function(arg) {
+option <- function(arg) {
   if (missing(arg)) return(none)
   
   if (is.null(arg)) return(none)
@@ -45,12 +45,34 @@ some <- function(arg) {
     else return(arg)
   }
 
-
   attr(arg, "option_class") <- attr(arg, "class")
   attr(arg, "option_none") <- FALSE
   attr(arg, "class") <- "optional"
 
   return(arg)
+}
+
+#' @title       some
+#' @usage       some(arg)
+#' @description
+#' Check if a optional object equals none
+#'
+#' @param arg   The variable to check existence
+#' @return      TRUE if \code{arg} is an optional variable 
+#' and if it is not none, else returns FALSE
+#' @seealso     option(), none
+#' a <- option(1)
+#' some(a)
+#' ## [1] TRUE
+#' b <- none
+#' some(b)
+#' ## [1] FALSE
+#' @export
+some <- function(arg) {
+  if (class(arg) == "optional") {
+    return(!attr(arg, "option_none"))
+  }
+  return(FALSE)
 }
 
 #' @title       None
@@ -59,13 +81,13 @@ some <- function(arg) {
 #' Might be returned by an optional function 
 #' (see \code{?make_opt()})
 #'
-#' @seealso     some(), opt_unwrap()
+#' @seealso     option(), opt_unwrap()
 #' @examples
 #' a <- none
 #' a
 #' ## [1] None
 #' @export
-none <- some(TRUE)
+none <- option(TRUE)
 attr(none, "option_none") <- TRUE
 
 #' @title       Option Unwrap
@@ -83,7 +105,7 @@ attr(none, "option_none") <- TRUE
 #'              \code{NULL} if \code{opt} is \code{none}.
 #' @seealso     make_opt(), match_with()
 #' @examples
-#' a <- some(5)
+#' a <- option(5)
 #' class(a)
 #' ## [1] "optional"
 #' a <- opt_unwrap(a)
@@ -129,7 +151,7 @@ opt_unwrap <- function(opt) {
 #'         several behaviors are available (see argument list).
 #'   \item If \code{f()} returns null, or if an error is thrown 
 #'         during its execution, then \code{f_opt()} returns 
-#'         \code{none}. Else it will return  \code{some(f(...))}.
+#'         \code{none}. Else it will return  \code{option(f(...))}.
 #' }
 #' @param fun                   The function to make optional, might be any 
 #'                              function.
@@ -143,10 +165,10 @@ opt_unwrap <- function(opt) {
 #'                              *Default: NULL*
 #' @return                      The optional function. To be used with the
 #'                              same parameters than \code{fun()}.
-#' @seealso                     some(), none(), match_with()
+#' @seealso                     option(), none(), match_with()
 #' @examples
 #' c_opt <- make_opt(c)
-#' c_opt(some(2), none, some(5))
+#' c_opt(option(2), none, option(5))
 #' ## [1] 2 5
 #' c_opt()
 #' ## [1] "None"
@@ -188,7 +210,7 @@ make_opt <- function(fun, stop_if_none = FALSE, fun_if_none = NULL) {
     if (is.null(ret))
       return(none)
     else
-      return(some(ret))
+      return(option(ret))
     })
 }
 
@@ -243,13 +265,13 @@ opt_call_match_ <- function(fun, x) {
 #' @param x     The variable to pattern-match
 #' @param ...   Pairs of one pattern (value or list or magrittr 
 #'              sequence) and one result function
-#' @seealso     some(), none
+#' @seealso     option(), none
 #' @examples
 #' library(magrittr)
 #'
 #' a <- 5
 #' match_with(a,
-#'   . %>% some(.),     paste,
+#'   . %>% option(.),     paste,
 #'   none, function()   "Error!"
 #' )
 #' ## [1] 5

@@ -22,7 +22,7 @@ base type, there is no known scenario where this
 function might be useful.
 }
 \examples{
-a <- some(5)
+a <- option(5)
 class(a)
 ## [1] "optional"
 a <- opt_unwrap(a)
