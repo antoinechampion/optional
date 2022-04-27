@@ -40,7 +40,7 @@ option <- function(arg) {
   
   if (is.null(arg)) return(none)
   
-  if (class(arg) == "optional") {
+  if (inherits(arg, "optional")) {
     if (attr(arg, "option_none")) return(FALSE)
     else return(arg)
   }
@@ -69,7 +69,7 @@ option <- function(arg) {
 #' ## [1] FALSE
 #' @export
 some <- function(arg) {
-  if (class(arg) == "optional") {
+  if (inherits(arg, "optional")) {
     return(!attr(arg, "option_none"))
   }
   return(FALSE)
@@ -114,7 +114,7 @@ attr(none, "option_none") <- TRUE
 #' ## [1] "numeric"
 #' @export
 opt_unwrap <- function(opt) {
-  if (class(opt) != "optional")
+  if (!inherits(opt, "optional"))
     return(opt)
 
   if (attr(opt, "option_none"))
@@ -130,11 +130,11 @@ opt_unwrap <- function(opt) {
 # Equal operator overload
 #' @export
 `==.optional` <- function(e1, e2) {
-  if (class(e1) == "optional" && attr(e1, "option_none"))
-    return(class(e2) == "optional" && attr(e2, "option_none"))
+  if (inherits(e1, "optional") && attr(e1, "option_none"))
+    return(inherits(e2, "optional") && attr(e2, "option_none"))
 
-  if (class(e2) == "optional" && attr(e2, "option_none"))
-    return(class(e1) == "optional" && attr(e1, "option_none"))
+  if (inherits(e2, "optional") && attr(e2, "option_none"))
+    return(inherits(e1, "optional") && attr(e1, "option_none"))
 
   return(opt_unwrap(e1) == opt_unwrap(e2))
 }
@@ -181,7 +181,7 @@ make_opt <- function(fun, stop_if_none = FALSE, fun_if_none = NULL) {
     if (length(args) != 0) {
       for (i in 1:length(args)) {
 
-        if (class(args[[i]]) != "optional") next
+        if (!inherits(args[[i]], "optional")) next
 
         if (args[[i]] == none) {
           if (!is.null(fun_if_none))
@@ -349,7 +349,7 @@ match_with <- function(x, ...) {
 #' ## [1] "This number is even"   "This number is a perfect square"
 #' @export
 fallthrough <- function(fun) {
-  if (class(fun) == "function")
+  if (inherits(fun, "function"))
     attr(fun, "option_fallthrough") <- TRUE
 
   return(fun)

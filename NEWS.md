@@ -1,3 +1,7 @@
+# optional 2.0.1
+* Remove placeholder vignette title
+* Replace verbatim classes comparisons with `inherits()`
+
 # optional 2.0
 * NOT COMPATIBLE WITH VERSIONS 1.x
 * Replace function `some()` with the type wrapper `option()`
